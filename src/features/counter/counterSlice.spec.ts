@@ -1,19 +1,14 @@
-import counterReducer, {
-  CounterState,
-  increment,
-  decrement,
-  incrementByAmount,
-} from './counterSlice';
+import counterReducer, { CounterState, increment, decrement, incrementByAmount } from './counterSlice';
 
 describe('counter reducer', () => {
   const initialState: CounterState = {
-    value: 3,
     status: 'idle',
+    value: 3,
   };
   it('should handle initial state', () => {
     expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
-      value: 0,
       status: 'idle',
+      value: 0,
     });
   });
 

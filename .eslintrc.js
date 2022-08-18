@@ -33,6 +33,8 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    "no-promise-executor-return": "off",
+    "no-param-reassign": "off",
     "global-require": "off",
     "import/no-dynamic-require": "off",
     "@typescript-eslint/no-var-requires": "off",
@@ -112,9 +114,6 @@ module.exports = {
       }
     ],
     "sort-keys-fix/sort-keys-fix": "warn",
-    "no-restricted-imports": ["error", {
-      "patterns": [".*"]
-    }],
     "import/prefer-default-export": "off",
     "react/jsx-sort-props": ["error", {
       "callbacksLast": true,
