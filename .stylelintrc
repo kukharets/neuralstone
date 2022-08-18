@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier-scss",
+    "stylelint-config-recess-order"
+  ],
+  "rules": {
+    "at-rule-empty-line-before": ["always", {
+      "except": ["blockless-after-same-name-blockless", "first-nested"],
+      "ignore": ["after-comment"]
+    }],
+    "no-descending-specificity": null,
+    "selector-class-pattern": null,
+    "value-keyword-case": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "scss/dollar-variable-empty-line-before": null,
+    "scss/no-global-function-names": null
+  },
+  "ignoreFiles": [
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}
