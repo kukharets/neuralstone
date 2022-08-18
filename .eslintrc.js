@@ -33,6 +33,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    "react/function-component-definition": [
+      2,
+      {
+        namedComponents: "arrow-function",
+        unnamedComponents: "arrow-function",
+      },
+    ],
     "no-promise-executor-return": "off",
     "no-param-reassign": "off",
     "global-require": "off",
