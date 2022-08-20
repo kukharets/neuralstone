@@ -1,9 +1,11 @@
-import { IPlayer } from '../interfaces/player';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 import deckIcon from '../media/deck.png';
 import heartIcon from '../media/hp.svg';
 import manaIcon from '../media/mana.png';
 
-const PlayerStats = ({ hp = 0, deck, manaTotal, manaLeft }: IPlayer): JSX.Element => {
+const PlayerStats = ({ playerID }: { playerID: number }): JSX.Element => {
+  const { playersData } = useTypedSelector(state => state.table);
+  const { hp = 0, deck, manaTotal, manaLeft } = playersData[playerID];
   return (
     <div className="player-stats-wrapper">
       <div>

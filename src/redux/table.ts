@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IPlayer } from '../interfaces/player';
+import { dummyClassesData } from '../data/dummyClassesData';
+import { IPlayer, IPlayerInitData } from '../interfaces/player';
 
 export interface ITableState {
   playersData: Record<number, IPlayer>;
@@ -12,6 +13,9 @@ const initialState: ITableState = {
       classTitle: '',
       deck: [],
       hand: [],
+      heroIcon: '',
+      heroPowerCost: 0,
+      heroPowerIcon: '',
       hp: 0,
       isPlayerTurn: false,
       manaLeft: 2,
@@ -22,6 +26,9 @@ const initialState: ITableState = {
       classTitle: '',
       deck: [],
       hand: [],
+      heroIcon: '',
+      heroPowerCost: 0,
+      heroPowerIcon: '',
       hp: 0,
       isPlayerTurn: false,
       manaLeft: 1,
@@ -35,9 +42,12 @@ export const tableSlice = createSlice({
   initialState,
   name: 'table',
   reducers: {
-    initPlayer: (state, action: PayloadAction<{ playerID: number; playerData: IPlayer }>) => {
-      const { playerID, playerData } = action.payload;
-      state.playersData = { ...state.playersData, [playerID]: { ...state.playersData[playerID], ...playerData } };
+    initPlayer: (state, action: PayloadAction<IPlayerInitData>) => {
+      const { playerID, classTitle } = action.payload;
+      state.playersData = {
+        ...state.playersData,
+        [playerID]: { ...state.playersData[playerID], ...action.payload, ...dummyClassesData[classTitle] },
+      };
     },
   },
 });
