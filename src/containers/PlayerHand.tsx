@@ -1,13 +1,8 @@
-import { HandCard, IHandCard } from '../components/HandCard';
-import { useTypedSelector } from '../hooks/useTypedSelector';
+import { HandCard } from '../components/HandCard';
+import { IHandCard } from '../interfaces/cards';
+import { IPlayer } from '../interfaces/player';
 
-interface IPlayerSection {
-  playerID: number;
-}
-
-const PlayerHand = ({ playerID }: IPlayerSection): JSX.Element => {
-  const { playersData } = useTypedSelector(state => state.table);
-  const { hand = [] } = playersData[playerID];
+const PlayerHand = ({ hand }: IPlayer): JSX.Element => {
   return (
     <div className="player-hand-container">
       <div className="player-hand">

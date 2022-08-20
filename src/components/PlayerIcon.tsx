@@ -1,12 +1,10 @@
 import { dummyClassesData } from '../data/dummyClassesData';
+import { IPlayer } from '../interfaces/player';
 
-export interface IPlayerIcon {
-  classTitle: string;
-}
-const PlayerIcon = ({ classTitle }: IPlayerIcon): JSX.Element => {
+const PlayerIcon = ({ classTitle = '', isPlayerTurn }: IPlayer): JSX.Element => {
   const classIcon = dummyClassesData[classTitle]?.icon;
   return (
-    <div className="player-icon">
+    <div className={`player-icon ${isPlayerTurn ? 'active' : ''}`}>
       <img alt={classTitle} src={classIcon} />
     </div>
   );

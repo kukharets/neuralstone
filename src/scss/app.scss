@@ -1,10 +1,33 @@
 body {
   margin: 0;
 }
-.board-wrapper {
-  background-color: #8b8b8a;
+.app-wrapper {
+  position: relative;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+  .backGroundImg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.4;
+  }
+
+  .board-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+  }
+}
+
+.bg-wrapper {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../media/backGround.jpg");
+  opacity: 0.3;
+  background-size: 100% 130%;
 }

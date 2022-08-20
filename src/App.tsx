@@ -7,12 +7,20 @@ import { initPlayer } from './redux/table';
 
 const App = () => {
   const dispatch = useDispatch();
-  dispatch(initPlayer({ playerData: { classTitle: 'warlock', hand: [], hp: 30 }, playerID: 1 }));
+  dispatch(
+    initPlayer({
+      playerData: { classTitle: 'warlock', deck: new Array(4), hand: [], hp: 3, isPlayerTurn: true },
+      playerID: 1,
+    }),
+  );
   return (
-    <div className="board-wrapper">
-      <PlayerSectionContainer playerID={1} />
-      <BoardCenterAreaContainer />
-      <PlayerSectionContainer playerID={2} />
+    <div className="app-wrapper">
+      <div className="board-wrapper">
+        <PlayerSectionContainer playerID={1} />
+        <BoardCenterAreaContainer />
+        <PlayerSectionContainer playerID={2} />
+      </div>
+      <div className="bg-wrapper" />
     </div>
   );
 };

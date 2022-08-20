@@ -1,3 +1,72 @@
 .player-section-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
   flex-basis: 18%;
+
+  .player-icon {
+    display: flex;
+    align-items: center;
+    border-radius: 100%;
+    width: 120px;
+    height: 120px;
+    &.active {
+      background: linear-gradient(#e66465, #9198e5);
+      background-size: 120%;
+      img {
+        animation: pulse 1s infinite;
+      }
+    }
+    img {
+      height: 120px;
+    }
+  }
+
+
+  .player-stats-wrapper {
+    display: flex;
+    gap: 20px;
+    >div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      img {
+        height: 40px;
+      }
+      span {
+        font-size: 60px;
+      }
+    }
+
+    .player-hp {
+      &.red {
+        color: #d03e49
+      }
+      &.green {
+        color: #27ab37
+      }
+    }
+
+    .mana-section {
+      color: #2f74ab
+    }
+  }
+
+}
+
+
+@keyframes pulse{
+  0% {
+    transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
