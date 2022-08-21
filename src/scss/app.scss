@@ -1,32 +1,30 @@
+
 body {
   margin: 0;
 }
 .app-wrapper {
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  .backGroundImg {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    opacity: 0.4;
+  width: 100%;
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  @media screen and (max-width: 1024px) {
+    min-height: -webkit-fill-available;
   }
-
   .board-wrapper {
     position: absolute;
     top: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height:  100%;
     display: flex;
     flex-direction: column;
-    z-index: 2;
+    z-index: 1;
   }
 }
 
 .bg-wrapper {
   position: absolute;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-image: url("../media/backGround.jpg");
   opacity: 0.3;
   background-size: 100% 130%;
