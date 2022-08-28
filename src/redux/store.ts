@@ -4,6 +4,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import tableReducer from './table';
 
 export const store = configureStore({
+  devTools: true,
   reducer: {
     table: tableReducer,
   },

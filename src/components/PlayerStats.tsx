@@ -3,7 +3,7 @@ import deckIcon from '../media/deck.png';
 import heartIcon from '../media/hp.svg';
 import manaIcon from '../media/mana.png';
 
-const PlayerStats = ({ playerID }: { playerID: number }): JSX.Element => {
+const PlayerStats = ({ playerID }: { playerID: 1 | 2 }): JSX.Element => {
   const { playersData } = useTypedSelector(state => state.table);
   const { hp = 0, deck, manaTotal, manaLeft } = playersData[playerID];
   return (

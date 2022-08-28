@@ -4,7 +4,7 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 
 import { PlayerHand } from './PlayerHand';
 
-const PlayerSectionContainer = ({ playerID }: { playerID: number }): JSX.Element => {
+const PlayerSectionContainer = ({ playerID }: { playerID: 1 | 2 }): JSX.Element => {
   const { playersData } = useTypedSelector(state => state.table);
   const { classTitle } = playersData[playerID];
   return (

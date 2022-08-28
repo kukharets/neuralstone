@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { DeckBuilderCard } from '../components/DeckBuilderCard';
 
@@ -23,12 +23,12 @@ const checkIfCardIsAllowToRemove = (card: Record<any, any>, deck: Record<any, an
   return currentCardsOfThisIDLength > 0;
 };
 
-const checkIfCardIsAllowToAdd = (card: Record<any, any>, deck: Record<any, any>[]) => {
+const checkIfCardIsAllowToAdd = (card: Record<any, any>, deck: Record<any, any>[], cardsLength: number) => {
   const newDeck = [...deck];
   const { rarity, cardId } = card;
   const cardQuantityLimit = rarity === 'Legendary' ? 1 : 2;
   const currentCardsOfThisIDLength = newDeck.find(el => el.cardId === cardId)?.quantity || 0;
-  return currentCardsOfThisIDLength < cardQuantityLimit;
+  return currentCardsOfThisIDLength < cardQuantityLimit && cardsLength < 30;
 };
 const DeckBuilderContainer = () => {
   const [searchText, setSearchText] = useState('');
@@ -60,11 +60,23 @@ const DeckBuilderContainer = () => {
     localStorage.setItem(deckTitle, JSON.stringify(deckCards));
   };
 
-  const isAllowToAddSelectedCard = checkIfCardIsAllowToAdd(selectedCard, deckCards);
+  const cardsLength = useMemo(() => {
+    let i = 0;
+    deckCards.forEach(card => {
+      if (card.quantity === 2) {
+        i += 2;
+      } else {
+        i += 1;
+      }
+    });
+    return i;
+  }, [deckCards]);
+
+  const isAllowToAddSelectedCard = checkIfCardIsAllowToAdd(selectedCard, deckCards, cardsLength);
   const isAllowToRemoveSelectedCard = checkIfCardIsAllowToRemove(selectedCard, deckCards);
 
   const handleAddCard = (data: Record<any, any>) => {
-    if (isAllowToAddSelectedCard) {
+    if (isAllowToAddSelectedCard && cardsLength < 30) {
       const index = deckCards.findIndex(card => card.cardId === data.cardId);
       const newCards = [...deckCards];
       if (index > -1) {
@@ -133,12 +145,13 @@ const DeckBuilderContainer = () => {
           </div>
           {!!deckCards.length && (
             <div className="deck-cards-wrapper">
+              <div className="cards-length">{cardsLength} / 30</div>
               <div className="deck-cards-list">
                 {deckCards.map(card => (
                   <DeckBuilderCard
                     addCard={() => handleAddCard(card)}
                     data={card}
-                    isAllowToAdd={checkIfCardIsAllowToAdd(card, deckCards)}
+                    isAllowToAdd={checkIfCardIsAllowToAdd(card, deckCards, cardsLength)}
                     isAllowToRemove={checkIfCardIsAllowToRemove(card, deckCards)}
                     removeCard={handleRemoveCard}
                     handleSelect={() => {

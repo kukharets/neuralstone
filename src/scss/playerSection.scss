@@ -55,8 +55,8 @@
       height: 114px;
       width: 114px;
       z-index: 55;
-      background-size: 300%;
-      background-position: center;
+      background-size: 160%;
+      background-position: center -20px;
       border: 3px solid lightblue;
     }
   }
@@ -89,9 +89,51 @@
     }
 
     .mana-section {
-      color: #2f74ab
+      color: $blue-text;
     }
   }
+
+
+  .player-hand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.player-1 {
+      .hand-card:hover {
+        top: -40px;
+      }
+    }
+    &.player-2 {
+      .hand-card:hover {
+        top: -90px;
+      }
+    }
+    .hand-card-wrapper {
+      position: relative;
+      height: 100px;
+      width: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .hand-card {
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        &:hover {
+          left: -30px;
+          height: 200px;
+          width: 140px;
+          z-index: 10;
+        }
+      }
+    }
+    }
 
 }
 
@@ -108,3 +150,6 @@
     transform: scale(1);
   }
 }
+
+
+

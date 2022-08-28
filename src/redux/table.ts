@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { dummyClassesData } from '../data/dummyClassesData';
-import { IPlayer, IPlayerInitData } from '../interfaces/player';
+import { IDummyClassData } from '../data/dummyClassesData';
+import { generatePlayerStartHand, getClassData, getShuffledDeck } from '../helpers';
+import { IPlayer } from '../interfaces/player';
+import { IGameInitData } from '../interfaces/table';
 
 export interface ITableState {
-  playersData: Record<number, IPlayer>;
+  playersData: Record<1 | 2, IPlayer>;
 }
 
 const initialState: ITableState = {
@@ -18,8 +20,8 @@ const initialState: ITableState = {
       heroPowerIcon: '',
       hp: 0,
       isPlayerTurn: false,
-      manaLeft: 2,
-      manaTotal: 4,
+      manaLeft: 1,
+      manaTotal: 1,
       playerID: 1,
     },
     2: {
@@ -42,15 +44,23 @@ export const tableSlice = createSlice({
   initialState,
   name: 'table',
   reducers: {
-    initPlayer: (state, action: PayloadAction<IPlayerInitData>) => {
-      const { playerID, classTitle } = action.payload;
-      state.playersData = {
-        ...state.playersData,
-        [playerID]: { ...state.playersData[playerID], ...action.payload, ...dummyClassesData[classTitle] },
-      };
+    startGame: (state, action: PayloadAction<IGameInitData>) => {
+      const { players } = action.payload;
+      const firstTurnID = Math.floor(Math.random() * 2) + 1;
+      const newPlayers = { 1: {}, 2: {} };
+      players.forEach((playerInitData: { id: 1 | 2; deckTitle: string; classTitle: string }) => {
+        const { id, deckTitle, classTitle } = playerInitData;
+        const deck = getShuffledDeck(deckTitle);
+        const isPlayerTurn = id === firstTurnID;
+        const hand = generatePlayerStartHand(deck, isPlayerTurn);
+        const classData: IDummyClassData = getClassData(classTitle);
+        newPlayers[id] = { ...state.playersData[id], ...classData, deck, hand, isPlayerTurn };
+      });
+
+      state.playersData = newPlayers;
     },
   },
 });
 
 export default tableSlice.reducer;
-export const { initPlayer } = tableSlice.actions;
+export const { startGame } = tableSlice.actions;

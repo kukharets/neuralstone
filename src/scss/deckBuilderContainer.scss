@@ -102,6 +102,13 @@
   .deck-cards-wrapper {
     position: relative;
     margin-top: 300px;
+    .cards-length {
+      position: absolute;
+      left: 10px;
+      top: -30px;
+      color: $blue-text;
+      font-size: 30px;
+    }
     .deck-cards-list {
       flex-wrap: wrap;
       display: flex;
