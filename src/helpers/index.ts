@@ -21,11 +21,30 @@ const parseDeckFromStorage = (deck: IStorageCard[]) => {
 export const getShuffledDeck = (deckTitle: string) =>
   parseDeckFromStorage(getDeckFromStorage(deckTitle)).sort(() => Math.random() - 0.5);
 
-export const generatePlayerStartHand = (deck: ICard[], isFirstTurn: boolean) => {
-  const newDeck = deck.sort(() => 0.5 - Math.random()).slice(0, 3);
-  return isFirstTurn ? newDeck : [...newDeck, dummyCardsData.coin];
+export const generatePlayerStartHand = (deckTitle: string, isFirstTurn: boolean) => {
+  const shuffledDeck = getShuffledDeck(deckTitle);
+  const hand = shuffledDeck.slice(0, 3);
+  const deck = shuffledDeck.slice(3);
+  if (!isFirstTurn) {
+    hand.push(dummyCardsData.coin);
+  }
+  return { deck, hand };
 };
 
 export const getClassData = (classTitle: string): IDummyClassData => {
   return dummyClassesData[classTitle];
+};
+
+export const generateStartDeck = ({
+  deckTitle,
+  classTitle,
+  isPlayerTurn,
+}: {
+  deckTitle: string;
+  classTitle: string;
+  isPlayerTurn: boolean;
+}) => {
+  const { deck, hand } = generatePlayerStartHand(deckTitle, isPlayerTurn);
+  const classData: IDummyClassData = getClassData(classTitle);
+  return { deck, hand, ...classData, isPlayerTurn };
 };

@@ -48,6 +48,7 @@ module.exports = {
     "global-require": "off",
     "import/no-dynamic-require": "off",
     "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/ban-types": "off",
     "jsx-a11y/control-has-associated-label": "off",
     "import/no-unresolved": "off",
     "react/prefer-stateless-function": "off",

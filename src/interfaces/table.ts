@@ -1,6 +1,6 @@
 export interface IGameInitData {
   players: {
-    id: 1 | 2;
+    id: number;
     classTitle: string;
     deckTitle: string;
   }[];

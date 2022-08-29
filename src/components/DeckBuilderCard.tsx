@@ -9,7 +9,7 @@ const DeckBuilderCard = ({
   quantity = 0,
 }: {
   data: Record<any, any>;
-  removeCard?: (cardID: number) => void;
+  removeCard?: (cardId: number) => void;
   addCard?: (cardData: Record<any, any>) => void;
   isCurrentCard?: boolean;
   isAllowToAdd?: boolean;
