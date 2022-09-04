@@ -1,6 +1,17 @@
-import { dummyCardsData } from '../data/dummyCardsData';
 import { dummyClassesData, IDummyClassData } from '../data/dummyClassesData';
 import { ICard } from '../interfaces/cards';
+
+export const generateSimpleID = (): string => {
+  return Math.random().toString(36).substr(2, 9);
+};
+
+export const getRandomBoolean = (): boolean => {
+  return Math.random() < 0.5;
+};
+
+export const getRandomNumber = (from: number, to: number): number => {
+  return Math.floor(Math.random() * to) + from;
+};
 
 const getDeckFromStorage = (deckTitle: string) => JSON.parse(localStorage.getItem(deckTitle) || '[]');
 
@@ -21,13 +32,14 @@ const parseDeckFromStorage = (deck: IStorageCard[]) => {
 export const getShuffledDeck = (deckTitle: string) =>
   parseDeckFromStorage(getDeckFromStorage(deckTitle)).sort(() => Math.random() - 0.5);
 
-export const generatePlayerStartHand = (deckTitle: string, isFirstTurn: boolean) => {
-  const shuffledDeck = getShuffledDeck(deckTitle);
-  const hand = shuffledDeck.slice(0, 3);
-  const deck = shuffledDeck.slice(3);
-  if (!isFirstTurn) {
-    hand.push(dummyCardsData.coin);
-  }
+export const generatePlayerStartHand = (deckTitle: string, isPlayerTurnFirst: boolean) => {
+  const shuffledDeck = getShuffledDeck(deckTitle).map(card => ({
+    ...card,
+    sessionID: generateSimpleID(),
+  }));
+  const startHandLenght = isPlayerTurnFirst ? 3 : 4;
+  const hand = shuffledDeck.slice(0, startHandLenght);
+  const deck = shuffledDeck.slice(startHandLenght);
   return { deck, hand };
 };
 

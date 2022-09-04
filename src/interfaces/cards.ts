@@ -1,8 +1,3 @@
-export interface IHandCard {
-  cardId: string;
-  name: string;
-  img: string;
-}
 export interface ICard {
   cardId: string;
   name: string;
@@ -12,4 +7,5 @@ export interface ICard {
 export interface IGameCard extends ICard {
   hp?: number;
   attack?: number;
+  sessionID: string;
 }

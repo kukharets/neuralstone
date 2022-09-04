@@ -45,6 +45,7 @@ module.exports = {
     "consistent-return": "off",
     "no-promise-executor-return": "off",
     "no-param-reassign": "off",
+    "no-case-declarations": "off",
     "global-require": "off",
     "import/no-dynamic-require": "off",
     "@typescript-eslint/no-var-requires": "off",

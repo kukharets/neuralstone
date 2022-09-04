@@ -1,6 +1,6 @@
-import { IHandCard } from '../interfaces/cards';
+import { IGameCard } from '../interfaces/cards';
 
-const HandCard = (data: IHandCard): JSX.Element => {
+const HandCard = (data: IGameCard): JSX.Element => {
   const { img } = data;
   return (
     <div className="hand-card-wrapper">
