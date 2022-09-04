@@ -2,10 +2,11 @@ import { HeroInfo } from '../components/HeroInfo';
 import { PlayerStats } from '../components/PlayerStats';
 import { usePlayerController } from '../hooks/usePlayerController';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { PlayerID } from '../interfaces/player';
 
 import { PlayerHand } from './PlayerHand';
 
-const PlayerSectionContainer = ({ playerID }: { playerID: number }): JSX.Element => {
+const PlayerSectionContainer = ({ playerID }: { playerID: PlayerID }): JSX.Element => {
   usePlayerController(playerID);
   const { playersData } = useTypedSelector(state => state.table);
   const { classTitle } = playersData[playerID];

@@ -1,11 +1,12 @@
 import { ChoicesTypes } from '../helpers/enums';
 
 import { IGameCard } from './cards';
+import { PlayerID } from './player';
 import { IBattleGround } from './table';
 
 export interface INextMoveOptionsDispatchData {
   cards: IGameCard[];
-  playerID: number;
+  playerID: PlayerID;
   choiceType: ChoicesTypes;
 }
 
@@ -16,6 +17,6 @@ export interface IPlayerNextMoveOptions {
 
 export interface IChangeGameStateDispatchData {
   newBattleGroundData?: IBattleGround;
-  newPlayersHandData?: Record<number, IGameCard[]>;
-  newPlayersDeckData?: Record<number, IGameCard[]>;
+  newPlayersData?: Record<PlayerID, { deck?: IGameCard[]; hand?: IGameCard[] }>;
+  turn?: number;
 }

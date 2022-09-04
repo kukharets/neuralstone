@@ -1,9 +1,10 @@
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { PlayerID } from '../interfaces/player';
 import deckIcon from '../media/deck.png';
 import heartIcon from '../media/hp.svg';
 import manaIcon from '../media/mana.png';
 
-const PlayerStats = ({ playerID }: { playerID: number }): JSX.Element => {
+const PlayerStats = ({ playerID }: { playerID: PlayerID }): JSX.Element => {
   const { playersData } = useTypedSelector(state => state.table);
   const { hp = 0, deck, manaTotal, manaLeft } = playersData[playerID];
   return (

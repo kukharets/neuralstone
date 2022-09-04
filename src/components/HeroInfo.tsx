@@ -1,6 +1,7 @@
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { PlayerID } from '../interfaces/player';
 
-const HeroInfo = ({ playerID }: { playerID: number }): JSX.Element => {
+const HeroInfo = ({ playerID }: { playerID: PlayerID }): JSX.Element => {
   const { playersData } = useTypedSelector(state => state.table);
   const { classTitle = '', heroIcon, heroPowerIcon, isPlayerTurn = false, heroPowerCost } = playersData[playerID];
   return (

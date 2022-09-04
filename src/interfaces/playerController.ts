@@ -1,11 +1,11 @@
-import { IPlayerChoice } from './player';
+import { IPlayerChoice, PlayerID } from './player';
 
 export interface INextChoiceDispatchData {
   choice: IPlayerChoice;
-  playerID: number;
+  playerID: PlayerID;
 }
 
 export interface IMulliganChoiceDispatchData {
   cardsToReplace: number[];
-  playerID: number;
+  playerID: PlayerID;
 }

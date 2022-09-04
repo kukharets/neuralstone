@@ -19,8 +19,10 @@ export interface IPlayerMoveToDeckChoice extends IPlayerBasicChoice {
 
 export type IPlayerChoice = IPlayerSpellChoice | IPlayerMoveToDeckChoice | Record<string, never>;
 
+export type PlayerID = string | number;
+
 export interface IPlayer extends IDummyClassData {
-  playerID?: number;
+  playerID?: PlayerID;
   hp: number;
   hand: IGameCard[];
   deck: IGameCard[];

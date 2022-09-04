@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { dummyCardsData } from '../data/dummyCardsData';
 import { generateSimpleID, getRandomNumber } from '../helpers';
 import { ChoicesTypes } from '../helpers/enums';
+import { PlayerID } from '../interfaces/player';
 import { addNextMoveOptions, changeGameState } from '../redux/table';
 
 import { useTypedSelector } from './useTypedSelector';
@@ -20,25 +21,25 @@ export const useGameController = () => {
   useEffect(() => {
     if (turnNumber === 0) {
       if (!player1MulliganDone && !player2MulliganDone) {
-        Object.keys(playersData).forEach((key: string) => {
-          const { hand, isPlayerTurn } = playersData[Number(key)];
+        Object.keys(playersData).forEach((key: PlayerID) => {
+          const { hand, isPlayerTurn } = playersData[key];
           const playerHandCardsToReplace = isPlayerTurn ? hand : hand.slice(0, -1);
           dispatch(
             addNextMoveOptions({
               cards: playerHandCardsToReplace,
               choiceType: ChoicesTypes.Mulligan,
-              playerID: Number(key),
+              playerID: key,
             }),
           );
         });
       } else if (player1MulliganDone && player2MulliganDone) {
-        Object.keys(playersData).forEach((key: string) => {
+        Object.keys(playersData).forEach((key: PlayerID) => {
           const {
             hand,
             isPlayerTurn,
             deck,
             mulliganChoice: { cardsIndexes },
-          } = playersData[Number(key)];
+          } = playersData[key];
           const deckAlreadyReplacedIndexes: Record<number, boolean> = {};
           const newHand = [...hand];
           const newDeck = [...deck];
@@ -61,11 +62,8 @@ export const useGameController = () => {
           }
           dispatch(
             changeGameState({
-              newPlayersDeckData: {
-                [Number(key)]: newDeck,
-              },
-              newPlayersHandData: {
-                [Number(key)]: newHand,
+              newPlayersData: {
+                [key]: { deck: newDeck, hand: newHand },
               },
             }),
           );

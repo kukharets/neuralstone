@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { generateStartDeck, getRandomNumber } from '../helpers';
 import { IChangeGameStateDispatchData, INextMoveOptionsDispatchData } from '../interfaces/gameController';
-import { IPlayer } from '../interfaces/player';
+import { IPlayer, PlayerID } from '../interfaces/player';
 import { IMulliganChoiceDispatchData, INextChoiceDispatchData } from '../interfaces/playerController';
 import { IBattleGround, IGameInitData } from '../interfaces/table';
 
 export interface ITableState {
-  playersData: Record<number, IPlayer>;
+  playersData: Record<PlayerID, IPlayer>;
   turnNumber: number;
   battleGround: IBattleGround;
 }
@@ -29,7 +29,7 @@ const initialState: ITableState = {
       mulliganChoice: {},
       nextChoice: {},
       nextMoveOptionsData: {},
-      playerID: 1,
+      playerID: '1',
     },
     2: {
       classTitle: '',
@@ -45,7 +45,7 @@ const initialState: ITableState = {
       mulliganChoice: {},
       nextChoice: {},
       nextMoveOptionsData: {},
-      playerID: 2,
+      playerID: '2',
     },
   },
   turnNumber: -1,
@@ -60,14 +60,12 @@ export const tableSlice = createSlice({
       state.playersData[playerID] = { ...state.playersData[playerID], nextMoveOptionsData: { cards, choiceType } };
     },
     changeGameState: (state, action: PayloadAction<IChangeGameStateDispatchData>) => {
-      const { newPlayersHandData = {}, newBattleGroundData, newPlayersDeckData = {} } = action.payload;
-      const player1Hand = newPlayersHandData[1] || state.playersData[1].hand;
-      const player2Hand = newPlayersHandData[2] || state.playersData[2].hand;
-      const player1Deck = newPlayersDeckData[1] || state.playersData[1].deck;
-      const player2Deck = newPlayersDeckData[2] || state.playersData[2].deck;
+      const { newPlayersData = {}, newBattleGroundData, turn } = action.payload;
+      Object.keys(newPlayersData).forEach((key: string) => {
+        state.playersData[key] = { ...state.playersData[key], ...newPlayersData[key] };
+      });
       state.battleGround = newBattleGroundData || state.battleGround;
-      state.playersData[1] = { ...state.playersData[1], deck: player1Deck, hand: player1Hand };
-      state.playersData[2] = { ...state.playersData[2], deck: player2Deck, hand: player2Hand };
+      state.turnNumber = turn || state.turnNumber;
     },
     mulliganChoiceAction: (state, action: PayloadAction<IMulliganChoiceDispatchData>) => {
       const { playerID, cardsToReplace } = action.payload;
