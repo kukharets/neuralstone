@@ -22,7 +22,7 @@ export type IPlayerChoice = IPlayerSpellChoice | IPlayerMoveToDeckChoice | Recor
 export type PlayerID = string | number;
 
 export interface IPlayer extends IDummyClassData {
-  playerID?: PlayerID;
+  playerID: PlayerID;
   hp: number;
   hand: IGameCard[];
   deck: IGameCard[];

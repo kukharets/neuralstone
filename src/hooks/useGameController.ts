@@ -4,13 +4,16 @@ import { useDispatch } from 'react-redux';
 import { dummyCardsData } from '../data/dummyCardsData';
 import { generateSimpleID, getRandomNumber } from '../helpers';
 import { ChoicesTypes } from '../helpers/enums';
+import { getAvailableMoves } from '../helpers/gameHelpers';
 import { PlayerID } from '../interfaces/player';
 import { addNextMoveOptions, changeGameState } from '../redux/table';
 
 import { useTypedSelector } from './useTypedSelector';
 
 export const useGameController = () => {
-  const { turnNumber, playersData } = useTypedSelector(state => state.table);
+  const { battleGround, turnNumber, playersData, currentTurnPlayerID, lastMoveDoneTime } = useTypedSelector(
+    state => state.table,
+  );
   const dispatch = useDispatch();
   const {
     mulliganChoice: { isDone: player1MulliganDone },
@@ -33,6 +36,7 @@ export const useGameController = () => {
           );
         });
       } else if (player1MulliganDone && player2MulliganDone) {
+        const newPlayersData: Record<string, any> = {};
         Object.keys(playersData).forEach((key: PlayerID) => {
           const {
             hand,
@@ -60,15 +64,22 @@ export const useGameController = () => {
           if (!isPlayerTurn) {
             newHand.push({ ...dummyCardsData.coin, sessionID: generateSimpleID() });
           }
-          dispatch(
-            changeGameState({
-              newPlayersData: {
-                [key]: { deck: newDeck, hand: newHand },
-              },
-            }),
-          );
+          newPlayersData[key] = { deck: newDeck, hand: newHand };
         });
+        dispatch(
+          changeGameState({
+            newPlayersData,
+            turn: 1,
+          }),
+        );
       }
     }
-  }, [turnNumber, player2MulliganDone, player1MulliganDone]);
+  }, [turnNumber, player2MulliganDone, player1MulliganDone, currentTurnPlayerID]);
+
+  useEffect(() => {
+    if (currentTurnPlayerID) {
+      const variants = getAvailableMoves({ currentPlayer: playersData[currentTurnPlayerID], battleGround });
+      console.log('variants', variants);
+    }
+  }, [lastMoveDoneTime, currentTurnPlayerID]);
 };

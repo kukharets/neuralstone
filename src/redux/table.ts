@@ -10,10 +10,14 @@ export interface ITableState {
   playersData: Record<PlayerID, IPlayer>;
   turnNumber: number;
   battleGround: IBattleGround;
+  currentTurnPlayerID: PlayerID | null;
+  lastMoveDoneTime: number;
 }
 
 const initialState: ITableState = {
-  battleGround: { playersArmies: { 0: [], 1: [] } },
+  battleGround: { playersArmies: { 1: [], 2: [] } },
+  currentTurnPlayerID: null,
+  lastMoveDoneTime: 0,
   playersData: {
     1: {
       classTitle: '',
@@ -86,6 +90,7 @@ export const tableSlice = createSlice({
         state.playersData[id] = { ...state.playersData[id], ...generatedDeckData };
       });
       state.turnNumber = 0;
+      state.currentTurnPlayerID = firstTurnID;
     },
   },
 });

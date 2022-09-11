@@ -1,4 +1,5 @@
 import { IGameCard } from './cards';
+import { PlayerID } from './player';
 
 export interface IGameInitData {
   players: {
@@ -9,5 +10,5 @@ export interface IGameInitData {
 }
 
 export interface IBattleGround {
-  playersArmies: Record<number, IGameCard[]>;
+  playersArmies: Record<PlayerID, IGameCard[]>;
 }

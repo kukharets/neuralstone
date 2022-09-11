@@ -1,3 +1,4 @@
+import { additionalCardsInfo } from '../data/dummyCardsData';
 import { dummyClassesData, IDummyClassData } from '../data/dummyClassesData';
 import { ICard } from '../interfaces/cards';
 
@@ -35,6 +36,7 @@ export const getShuffledDeck = (deckTitle: string) =>
 export const generatePlayerStartHand = (deckTitle: string, isPlayerTurnFirst: boolean) => {
   const shuffledDeck = getShuffledDeck(deckTitle).map(card => ({
     ...card,
+    ...additionalCardsInfo[card.cardId],
     sessionID: generateSimpleID(),
   }));
   const startHandLenght = isPlayerTurnFirst ? 3 : 4;
