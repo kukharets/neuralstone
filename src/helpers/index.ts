@@ -39,9 +39,9 @@ export const generatePlayerStartHand = (deckTitle: string, isPlayerTurnFirst: bo
     ...additionalCardsInfo[card.cardId],
     sessionID: generateSimpleID(),
   }));
-  const startHandLenght = isPlayerTurnFirst ? 3 : 4;
-  const hand = shuffledDeck.slice(0, startHandLenght);
-  const deck = shuffledDeck.slice(startHandLenght);
+  const startHandLength = isPlayerTurnFirst ? 3 : 4;
+  const hand = shuffledDeck.slice(0, startHandLength);
+  const deck = shuffledDeck.slice(startHandLength);
   return { deck, hand };
 };
 
